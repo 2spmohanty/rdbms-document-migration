@@ -1,370 +1,435 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zero Risk Migration | Customer Loyalty Platform</title>
-<style>
-  :root{
-    --g50:#f0fdf4;--g100:#dcfce7;--g200:#bbf7d0;--g400:#4ade80;--g500:#22c55e;--g600:#16a34a;--g700:#15803d;--g800:#166534;
-    --b50:#eff6ff;--b100:#dbeafe;--b200:#bfdbfe;--b400:#60a5fa;--b500:#3b82f6;--b600:#2563eb;--b700:#1d4ed8;
-    --t50:#f0fdfa;--t100:#ccfbf1;--t500:#14b8a6;--t600:#0d9488;--t700:#0f766e;
-    --s50:#f8fafc;--s100:#f1f5f9;--s200:#e2e8f0;--s300:#cbd5e1;--s400:#94a3b8;--s500:#64748b;--s600:#475569;--s700:#334155;--s800:#1e293b;--s900:#0f172a;
-    --a50:#fffbeb;--a100:#fef3c7;--a400:#fbbf24;--a500:#f59e0b;--a600:#d97706;--a700:#b45309;
-    --r50:#fff1f2;--r100:#ffe4e6;--r400:#f87171;--r500:#f43f5e;--r600:#e11d48;--r700:#be123c;
-    --font:'Segoe UI',system-ui,-apple-system,sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:var(--font);background:var(--s50);color:var(--s800);overflow-x:hidden;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Risk Migration | Customer Loyalty Platform</title>
+    <style>
+        :root{
+          --g50:#f0fdf4;--g100:#dcfce7;--g200:#bbf7d0;--g400:#4ade80;--g500:#22c55e;--g600:#16a34a;--g700:#15803d;--g800:#166534;
+          --b50:#eff6ff;--b100:#dbeafe;--b200:#bfdbfe;--b400:#60a5fa;--b500:#3b82f6;--b600:#2563eb;--b700:#1d4ed8;
+          --t50:#f0fdfa;--t100:#ccfbf1;--t500:#14b8a6;--t600:#0d9488;--t700:#0f766e;
+          --s50:#f8fafc;--s100:#f1f5f9;--s200:#e2e8f0;--s300:#cbd5e1;--s400:#94a3b8;--s500:#64748b;--s600:#475569;--s700:#334155;--s800:#1e293b;--s900:#0f172a;
+          --a50:#fffbeb;--a100:#fef3c7;--a400:#fbbf24;--a500:#f59e0b;--a600:#d97706;--a700:#b45309;
+          --r50:#fff1f2;--r100:#ffe4e6;--r400:#f87171;--r500:#f43f5e;--r600:#e11d48;--r700:#be123c;
+          --font:'Segoe UI',system-ui,-apple-system,sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:var(--font);background:var(--s50);color:var(--s800);overflow-x:hidden;}
 
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--s200);display:flex;align-items:center;padding:0 1.5rem;height:50px;gap:2px;}
-  .nav-logo{font-size:12px;font-weight:700;color:var(--g700);margin-right:auto;letter-spacing:-0.2px;}
-  .nav-logo span{color:var(--s400);font-weight:400;}
-  .nav-btn{font-size:10px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--s500);background:none;border:none;cursor:pointer;padding:5px 9px;border-radius:6px;transition:all 0.15s;white-space:nowrap;}
-  .nav-btn:hover{background:var(--g50);color:var(--g700);}
-  .nav-btn.active{background:var(--g100);color:var(--g700);font-weight:700;}
+        nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--s200);display:flex;align-items:center;padding:0 1.5rem;height:50px;gap:2px;}
+        .nav-logo{font-size:12px;font-weight:700;color:var(--g700);margin-right:auto;letter-spacing:-0.2px;}
+        .nav-logo span{color:var(--s400);font-weight:400;}
+        .nav-btn{font-size:10px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--s500);background:none;border:none;cursor:pointer;padding:5px 9px;border-radius:6px;transition:all 0.15s;white-space:nowrap;}
+        .nav-btn:hover{background:var(--g50);color:var(--g700);}
+        .nav-btn.active{background:var(--g100);color:var(--g700);font-weight:700;}
 
-  .page{display:none;min-height:100vh;padding:58px 0 48px;}
-  .page.active{display:block;}
-  .container{max-width:1060px;margin:0 auto;padding:0 1.75rem;}
+        .page{display:none;min-height:100vh;padding:58px 0 48px;}
+        .page.active{display:block;}
+        .container{max-width:1060px;margin:0 auto;padding:0 1.75rem;}
 
-  .hero{background:linear-gradient(135deg,var(--g700) 0%,var(--t700) 55%,var(--b700) 100%);padding:44px 1.75rem 40px;text-align:center;}
-  .hero-badge{display:inline-block;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,0.2);margin-bottom:16px;}
-  .hero h1{font-size:30px;font-weight:800;color:#fff;letter-spacing:-0.6px;line-height:1.2;margin-bottom:8px;}
-  .hero p{font-size:14px;color:rgba(255,255,255,0.75);max-width:560px;margin:0 auto;}
+        .hero{background:linear-gradient(135deg,var(--g700) 0%,var(--t700) 55%,var(--b700) 100%);padding:44px 1.75rem 40px;text-align:center;}
+        .hero-badge{display:inline-block;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,0.2);margin-bottom:16px;}
+        .hero h1{font-size:30px;font-weight:800;color:#fff;letter-spacing:-0.6px;line-height:1.2;margin-bottom:8px;}
+        .hero p{font-size:14px;color:rgba(255,255,255,0.75);max-width:560px;margin:0 auto;}
 
-  .stag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g600);margin-bottom:6px;}
-  .sh{font-size:22px;font-weight:700;color:var(--s800);letter-spacing:-0.4px;margin-bottom:6px;}
-  .sl{font-size:13px;color:var(--s500);margin-bottom:20px;}
-  .divider{height:1px;background:var(--s200);margin:24px 0;}
+        .stag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g600);margin-bottom:6px;}
+        .sh{font-size:22px;font-weight:700;color:var(--s800);letter-spacing:-0.4px;margin-bottom:6px;}
+        .sl{font-size:13px;color:var(--s500);margin-bottom:20px;}
+        .divider{height:1px;background:var(--s200);margin:24px 0;}
 
-  /* METRIC CARDS */
-  .mrow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:-26px 0 32px;position:relative;z-index:10;}
-  .mc{background:#fff;border-radius:14px;border:1px solid var(--s200);padding:20px 16px 16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.06);transition:transform 0.2s;}
-  .mc:hover{transform:translateY(-2px);}
-  .mc-val{font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1;margin-bottom:4px;}
-  .mc-top{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--s400);margin-bottom:10px;}
-  .mc-sub{font-size:11px;color:var(--s500);padding-top:9px;border-top:1px solid var(--s100);line-height:1.4;}
-  .mc-sub strong{color:var(--g600);}
-  .red .mc-val{color:var(--r600);}
-  .amb .mc-val{color:var(--a600);}
-  .blu .mc-val{color:var(--b600);}
-  .pur .mc-val{color:#7c3aed;}
+        /* METRIC CARDS */
+        .mrow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:-26px 0 32px;position:relative;z-index:10;}
+        .mc{background:#fff;border-radius:14px;border:1px solid var(--s200);padding:20px 16px 16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.06);transition:transform 0.2s;}
+        .mc:hover{transform:translateY(-2px);}
+        .mc-val{font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1;margin-bottom:4px;}
+        .mc-top{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--s400);margin-bottom:10px;}
+        .mc-sub{font-size:11px;color:var(--s500);padding-top:9px;border-top:1px solid var(--s100);line-height:1.4;}
+        .mc-sub strong{color:var(--g600);}
+        .red .mc-val{color:var(--r600);}
+        .amb .mc-val{color:var(--a600);}
+        .blu .mc-val{color:var(--b600);}
+        .pur .mc-val{color:#7c3aed;}
 
-  /* SOLUTION CARDS */
-  .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;}
-  .sol{background:#fff;border-radius:12px;border:1px solid var(--s200);padding:18px 14px;transition:all 0.2s;}
-  .sol:hover{border-color:var(--g400);}
-  .si{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:10px;}
-  .sol h3{font-size:12px;font-weight:700;color:var(--s800);margin-bottom:3px;}
-  .sol p{font-size:11px;color:var(--s500);line-height:1.45;}
-  .sig{background:var(--g100);}.sib{background:var(--b100);}.sit{background:var(--t100);}.sia{background:var(--a100);}
+        /* SOLUTION CARDS */
+        .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;}
+        .sol{background:#fff;border-radius:12px;border:1px solid var(--s200);padding:18px 14px;transition:all 0.2s;}
+        .sol:hover{border-color:var(--g400);}
+        .si{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:10px;}
+        .sol h3{font-size:12px;font-weight:700;color:var(--s800);margin-bottom:3px;}
+        .sol p{font-size:11px;color:var(--s500);line-height:1.45;}
+        .sig{background:var(--g100);}.sib{background:var(--b100);}.sit{background:var(--t100);}.sia{background:var(--a100);}
 
-  /* PROB CARDS */
-  .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
-  .prob{background:var(--r50);border:1px solid var(--r100);border-radius:10px;padding:16px 14px;}
-  .prob h4{font-size:12px;font-weight:700;color:var(--r700);margin-bottom:3px;}
-  .prob p{font-size:11px;color:var(--r600);line-height:1.4;}
+        /* PROB CARDS */
+        .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
+        .prob{background:var(--r50);border:1px solid var(--r100);border-radius:10px;padding:16px 14px;}
+        .prob h4{font-size:12px;font-weight:700;color:var(--r700);margin-bottom:3px;}
+        .prob p{font-size:11px;color:var(--r600);line-height:1.4;}
 
-  /* PAGE 2 */
-  .sf-why{background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:var(--s700);line-height:1.55;}
-  .sf-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
-  .sfp{background:#fff;border:1px solid var(--s200);border-radius:12px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;}
-  .sfp-lbl{font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--g700);margin-bottom:12px;text-align:center;}
+        /* PAGE 2 */
+        .sf-why{background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:var(--s700);line-height:1.55;}
+        .sf-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
+        .sfp{background:#fff;border:1px solid var(--s200);border-radius:12px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;}
+        .sfp-lbl{font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--g700);margin-bottom:12px;text-align:center;}
 
-  .fcol{display:flex;flex-direction:column;align-items:center;width:100%;gap:0;}
-  .fn{padding:7px 10px;border-radius:7px;font-size:11px;font-weight:600;text-align:center;width:100%;max-width:108px;line-height:1.3;}
-  .fn-cli{background:var(--s800);color:#fff;}
-  .fn-api{background:var(--b50);color:var(--b700);border:1px solid var(--b200);}
-  .fn-leg{background:var(--r50);color:var(--r700);border:1px solid var(--r200);}
-  .fn-atl{background:var(--g50);color:var(--g700);border:1px solid var(--g200);}
-  .fn-shd{background:var(--a50);color:var(--a700);border:1px solid var(--a200);}
-  .fn-fad{background:var(--s100);color:var(--s400);border:1px solid var(--s200);opacity:0.55;}
-  .farr{font-size:15px;color:var(--s400);line-height:1;margin:3px 0;}
-  .fsplit{display:flex;gap:8px;width:100%;justify-content:center;margin:3px 0;}
-  .fscol{display:flex;flex-direction:column;align-items:center;gap:2px;}
-  .fpct{font-size:9px;font-weight:700;color:var(--s400);}
-  .wbw{width:100%;margin:7px 0 4px;}
-  .wbr{display:flex;height:4px;border-radius:2px;overflow:hidden;margin-bottom:2px;}
-  .wbl{background:var(--r400,#f87171);}
-  .wba{background:var(--g400);}
-  .wbls{display:flex;justify-content:space-between;font-size:9px;font-weight:600;}
-  .sfnote{font-size:10px;color:var(--s500);text-align:center;line-height:1.4;margin-top:4px;}
-  .sfbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-  .sfb{background:var(--s800);border-radius:10px;padding:14px 12px;}
-  .sfb h4{font-size:12px;font-weight:700;color:var(--g400);margin-bottom:3px;}
-  .sfb p{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.4;}
+        .fcol{display:flex;flex-direction:column;align-items:center;width:100%;gap:0;}
+        .fn{padding:7px 10px;border-radius:7px;font-size:11px;font-weight:600;text-align:center;width:100%;max-width:108px;line-height:1.3;}
+        .fn-cli{background:var(--s800);color:#fff;}
+        .fn-api{background:var(--b50);color:var(--b700);border:1px solid var(--b200);}
+        .fn-leg{background:var(--r50);color:var(--r700);border:1px solid var(--r200);}
+        .fn-atl{background:var(--g50);color:var(--g700);border:1px solid var(--g200);}
+        .fn-shd{background:var(--a50);color:var(--a700);border:1px solid var(--a200);}
+        .fn-fad{background:var(--s100);color:var(--s400);border:1px solid var(--s200);opacity:0.55;}
+        .farr{font-size:15px;color:var(--s400);line-height:1;margin:3px 0;}
+        .fsplit{display:flex;gap:8px;width:100%;justify-content:center;margin:3px 0;}
+        .fscol{display:flex;flex-direction:column;align-items:center;gap:2px;}
+        .fpct{font-size:9px;font-weight:700;color:var(--s400);}
+        .wbw{width:100%;margin:7px 0 4px;}
+        .wbr{display:flex;height:4px;border-radius:2px;overflow:hidden;margin-bottom:2px;}
+        .wbl{background:var(--r400,#f87171);}
+        .wba{background:var(--g400);}
+        .wbls{display:flex;justify-content:space-between;font-size:9px;font-weight:600;}
+        .sfnote{font-size:10px;color:var(--s500);text-align:center;line-height:1.4;margin-top:4px;}
+        .sfbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+        .sfb{background:var(--s800);border-radius:10px;padding:14px 12px;}
+        .sfb h4{font-size:12px;font-weight:700;color:var(--g400);margin-bottom:3px;}
+        .sfb p{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.4;}
 
-  /* PAGE 3 */
-  .qpair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
-  .cb{background:var(--s900);border-radius:12px;padding:16px;}
-  .cb-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:7px;}
-  .cb-bdg{padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700;}
-  .cbr{color:var(--r400);}
-  .cbr .cb-bdg{background:rgba(244,63,94,0.15);color:var(--r400);}
-  .cbg{color:var(--g400);}
-  .cbg .cb-bdg{background:rgba(34,197,94,0.15);color:var(--g400);}
-  .cb pre{font-family:'Courier New',monospace;font-size:11px;line-height:1.6;color:#e2e8f0;white-space:pre-wrap;}
-  .kw{color:#93c5fd;}.cmt{color:#475569;font-style:italic;}.fn2{color:#fde68a;}.num{color:#f9a8d4;}
-  .pb{display:inline-flex;align-items:center;gap:4px;margin-top:9px;padding:4px 9px;border-radius:5px;font-size:11px;font-weight:600;}
-  .pbr{background:rgba(244,63,94,0.1);color:var(--r600);}
-  .pbg{background:rgba(34,197,94,0.1);color:var(--g600);}
+        /* PAGE 3 */
+        .qpair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
+        .cb{background:var(--s900);border-radius:12px;padding:16px;}
+        .cb-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:7px;}
+        .cb-bdg{padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700;}
+        .cbr{color:var(--r400);}
+        .cbr .cb-bdg{background:rgba(244,63,94,0.15);color:var(--r400);}
+        .cbg{color:var(--g400);}
+        .cbg .cb-bdg{background:rgba(34,197,94,0.15);color:var(--g400);}
+        .cb pre{font-family:'Courier New',monospace;font-size:11px;line-height:1.6;color:#e2e8f0;white-space:pre-wrap;}
+        .kw{color:#93c5fd;}.cmt{color:#475569;font-style:italic;}.fn2{color:#fde68a;}.num{color:#f9a8d4;}
+        .pb{display:inline-flex;align-items:center;gap:4px;margin-top:9px;padding:4px 9px;border-radius:5px;font-size:11px;font-weight:600;}
+        .pbr{background:rgba(244,63,94,0.1);color:var(--r600);}
+        .pbg{background:rgba(34,197,94,0.1);color:var(--g600);}
 
-  .ctbl{width:100%;border-collapse:collapse;margin-bottom:18px;font-size:12px;}
-  .ctbl th{padding:9px 12px;background:var(--s800);color:#fff;font-weight:600;font-size:10px;letter-spacing:0.5px;text-align:left;}
-  .ctbl th:first-child{border-radius:10px 0 0 0;}
-  .ctbl th:last-child{border-radius:0 10px 0 0;}
-  .ctbl td{padding:9px 12px;border-bottom:1px solid var(--s100);vertical-align:middle;}
-  .ctbl tr:last-child td{border-bottom:none;}
-  .ctbl tr:hover td{background:var(--s50);}
-  .ctd{color:var(--s500);font-weight:600;font-size:11px;}
-  .cno{color:var(--r500);font-weight:600;}
-  .cyes{color:var(--g600);font-weight:600;}
-  .cwarn{color:var(--a600);font-weight:600;}
+        .ctbl{width:100%;border-collapse:collapse;margin-bottom:18px;font-size:12px;}
+        .ctbl th{padding:9px 12px;background:var(--s800);color:#fff;font-weight:600;font-size:10px;letter-spacing:0.5px;text-align:left;}
+        .ctbl th:first-child{border-radius:10px 0 0 0;}
+        .ctbl th:last-child{border-radius:0 10px 0 0;}
+        .ctbl td{padding:9px 12px;border-bottom:1px solid var(--s100);vertical-align:middle;}
+        .ctbl tr:last-child td{border-bottom:none;}
+        .ctbl tr:hover td{background:var(--s50);}
+        .ctd{color:var(--s500);font-weight:600;font-size:11px;}
+        .cno{color:var(--r500);font-weight:600;}
+        .cyes{color:var(--g600);font-weight:600;}
+        .cwarn{color:var(--a600);font-weight:600;}
 
-  .winner{background:linear-gradient(135deg,var(--g700),var(--t600));border-radius:12px;padding:20px 24px;color:#fff;}
-  .winner h3{font-size:15px;font-weight:700;margin-bottom:10px;}
-  .wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-  .wg{font-size:12px;line-height:1.45;}
-  .wg strong{display:block;font-size:10px;font-weight:700;color:var(--g200);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;}
+        .winner{background:linear-gradient(135deg,var(--g700),var(--t600));border-radius:12px;padding:20px 24px;color:#fff;}
+        .winner h3{font-size:15px;font-weight:700;margin-bottom:10px;}
+        .wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+        .wg{font-size:12px;line-height:1.45;}
+        .wg strong{display:block;font-size:10px;font-weight:700;color:var(--g200);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;}
 
-  /* PAGE 4 */
-  .gw{overflow-x:auto;margin-bottom:20px;}
-  .gt{width:100%;border-collapse:collapse;min-width:680px;}
-  .gt th{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:9px 10px;background:var(--s800);color:rgba(255,255,255,0.8);text-align:center;}
-  .gt th:first-child{text-align:left;border-radius:10px 0 0 0;width:170px;}
-  .gt th:last-child{border-radius:0 10px 0 0;}
-  .gt td{padding:7px 10px;border-bottom:1px solid var(--s100);font-size:11px;}
-  .gt tr:last-child td{border-bottom:none;}
-  .gtk{font-weight:600;color:var(--s700);}
-  .gcat{font-size:9px;color:var(--s400);}
-  .gcc{text-align:center;}
-  .gb{display:block;height:16px;border-radius:3px;margin:0 auto;}
-  .gg{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;}
-  .ggg{background:var(--g100);color:var(--g700);}
-  .ggc{background:var(--g500);color:#fff;font-size:11px;}
+        /* PAGE 4 */
+        .gw{overflow-x:auto;margin-bottom:20px;}
+        .gt{width:100%;border-collapse:collapse;min-width:680px;}
+        .gt th{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:9px 10px;background:var(--s800);color:rgba(255,255,255,0.8);text-align:center;}
+        .gt th:first-child{text-align:left;border-radius:10px 0 0 0;width:170px;}
+        .gt th:last-child{border-radius:0 10px 0 0;}
+        .gt td{padding:7px 10px;border-bottom:1px solid var(--s100);font-size:11px;}
+        .gt tr:last-child td{border-bottom:none;}
+        .gtk{font-weight:600;color:var(--s700);}
+        .gcat{font-size:9px;color:var(--s400);}
+        .gcc{text-align:center;}
+        .gb{display:block;height:16px;border-radius:3px;margin:0 auto;}
+        .gg{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;}
+        .ggg{background:var(--g100);color:var(--g700);}
+        .ggc{background:var(--g500);color:#fff;font-size:11px;}
 
-  .mscards{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px;}
-  .msc{background:#fff;border:1px solid var(--s200);border-radius:9px;padding:10px 7px;text-align:center;cursor:pointer;transition:all 0.2s;}
-  .msc:hover,.msc.sel{border-color:var(--g400);background:var(--g50);}
-  .msl{font-size:10px;font-weight:800;color:var(--g700);margin-bottom:2px;}
-  .mst{font-size:9px;color:var(--s500);line-height:1.3;}
-  .msd{background:#fff;border:1px solid var(--g200);border-radius:9px;padding:14px 18px;margin-top:10px;display:none;}
-  .msd.show{display:block;}
-  .msd h4{font-size:13px;font-weight:700;color:var(--g700);margin-bottom:7px;}
-  .msd ul{list-style:none;}
-  .msd ul li{font-size:12px;color:var(--s600);padding:4px 0;display:flex;gap:6px;}
-  .msd ul li::before{content:'→';color:var(--g500);font-weight:700;flex-shrink:0;}
-  .msgate{margin-top:7px;padding:6px 10px;background:var(--g50);border-radius:6px;font-size:11px;color:var(--g700);font-weight:600;}
+        .mscards{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px;}
+        .msc{background:#fff;border:1px solid var(--s200);border-radius:9px;padding:10px 7px;text-align:center;cursor:pointer;transition:all 0.2s;}
+        .msc:hover,.msc.sel{border-color:var(--g400);background:var(--g50);}
+        .msl{font-size:10px;font-weight:800;color:var(--g700);margin-bottom:2px;}
+        .mst{font-size:9px;color:var(--s500);line-height:1.3;}
+        .msd{background:#fff;border:1px solid var(--g200);border-radius:9px;padding:14px 18px;margin-top:10px;display:none;}
+        .msd.show{display:block;}
+        .msd h4{font-size:13px;font-weight:700;color:var(--g700);margin-bottom:7px;}
+        .msd ul{list-style:none;}
+        .msd ul li{font-size:12px;color:var(--s600);padding:4px 0;display:flex;gap:6px;}
+        .msd ul li::before{content:'→';color:var(--g500);font-weight:700;flex-shrink:0;}
+        .msgate{margin-top:7px;padding:6px 10px;background:var(--g50);border-radius:6px;font-size:11px;color:var(--g700);font-weight:600;}
 
-  /* PAGE 5 */
-  .dfg{background:#fff;border:1px solid var(--s200);border-radius:14px;overflow:hidden;margin-bottom:16px;}
-  .dfh{display:grid;grid-template-columns:120px repeat(6,1fr);background:var(--s800);}
-  .dfhc{text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.8);padding:9px 4px;letter-spacing:0.3px;}
-  .dfhc span{display:block;font-size:8px;color:rgba(255,255,255,0.4);font-weight:400;}
-  .dfhc:first-child{text-align:left;padding-left:12px;}
-  .dfrow{display:grid;grid-template-columns:120px repeat(6,1fr);border-bottom:1px solid var(--s100);min-height:40px;}
-  .dfrow:last-child{border-bottom:none;}
-  .dfrow.alt{background:var(--g50);}
-  .dflbl{font-size:9px;font-weight:700;color:var(--s600);padding:6px 12px;display:flex;align-items:center;border-right:2px solid var(--s200);text-transform:uppercase;letter-spacing:0.4px;}
-  .dfc{padding:4px 3px;display:flex;align-items:center;justify-content:center;}
-  .dp{font-size:9px;font-weight:600;padding:3px 5px;border-radius:14px;text-align:center;line-height:1.3;width:100%;}
-  .dpleg{background:var(--r100);color:var(--r700);}
-  .dpdual{background:var(--a100);color:var(--a700);}
-  .dpatl{background:var(--g100);color:var(--g700);}
-  .dpsh{background:var(--b100);color:var(--b700);}
-  .dpdn{background:var(--t100);color:var(--t700);}
-  .dpblk{background:var(--s100);color:var(--s400);}
-  .dpgte{background:var(--g500);color:#fff;}
-  .dpgts{background:var(--g100);color:var(--g700);}
-  .dppurp{background:#ede9fe;color:#6d28d9;}
+        /* PAGE 5 */
+        .dfg{background:#fff;border:1px solid var(--s200);border-radius:14px;overflow:hidden;margin-bottom:16px;}
+        .dfh{display:grid;grid-template-columns:120px repeat(6,1fr);background:var(--s800);}
+        .dfhc{text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.8);padding:9px 4px;letter-spacing:0.3px;}
+        .dfhc span{display:block;font-size:8px;color:rgba(255,255,255,0.4);font-weight:400;}
+        .dfhc:first-child{text-align:left;padding-left:12px;}
+        .dfrow{display:grid;grid-template-columns:120px repeat(6,1fr);border-bottom:1px solid var(--s100);min-height:40px;}
+        .dfrow:last-child{border-bottom:none;}
+        .dfrow.alt{background:var(--g50);}
+        .dflbl{font-size:9px;font-weight:700;color:var(--s600);padding:6px 12px;display:flex;align-items:center;border-right:2px solid var(--s200);text-transform:uppercase;letter-spacing:0.4px;}
+        .dfc{padding:4px 3px;display:flex;align-items:center;justify-content:center;}
+        .dp{font-size:9px;font-weight:600;padding:3px 5px;border-radius:14px;text-align:center;line-height:1.3;width:100%;}
+        .dpleg{background:var(--r100);color:var(--r700);}
+        .dpdual{background:var(--a100);color:var(--a700);}
+        .dpatl{background:var(--g100);color:var(--g700);}
+        .dpsh{background:var(--b100);color:var(--b700);}
+        .dpdn{background:var(--t100);color:var(--t700);}
+        .dpblk{background:var(--s100);color:var(--s400);}
+        .dpgte{background:var(--g500);color:#fff;}
+        .dpgts{background:var(--g100);color:var(--g700);}
+        .dppurp{background:#ede9fe;color:#6d28d9;}
 
-  /* PAGE 6 */
-  .itbl{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px;}
-  .itbl th{padding:9px 12px;background:var(--s800);color:#fff;font-size:10px;font-weight:700;text-align:left;letter-spacing:0.5px;}
-  .itbl th:first-child{border-radius:10px 0 0 0;width:130px;}
-  .itbl th:last-child{border-radius:0 10px 0 0;width:120px;}
-  .itbl td{padding:9px 12px;border-bottom:1px solid var(--s100);vertical-align:middle;}
-  .itbl tr:last-child td{border-bottom:none;}
-  .itbl tr:hover td{background:var(--s50);}
-  .itc{font-weight:700;color:var(--s700);}
-  .itcode{font-family:monospace;font-size:10px;color:var(--s600);background:var(--s100);padding:2px 5px;border-radius:3px;}
-  .bnone{background:var(--g100);color:var(--g700);padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;}
-  .bcfg{background:var(--b100);color:var(--b700);padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;}
-  .badd{background:var(--a100);color:var(--a700);padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;}
+        /* PAGE 6 */
+        .itbl{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px;}
+        .itbl th{padding:9px 12px;background:var(--s800);color:#fff;font-size:10px;font-weight:700;text-align:left;letter-spacing:0.5px;}
+        .itbl th:first-child{border-radius:10px 0 0 0;width:130px;}
+        .itbl th:last-child{border-radius:0 10px 0 0;width:120px;}
+        .itbl td{padding:9px 12px;border-bottom:1px solid var(--s100);vertical-align:middle;}
+        .itbl tr:last-child td{border-bottom:none;}
+        .itbl tr:hover td{background:var(--s50);}
+        .itc{font-weight:700;color:var(--s700);}
+        .itcode{font-family:monospace;font-size:10px;color:var(--s600);background:var(--s100);padding:2px 5px;border-radius:3px;}
+        .bnone{background:var(--g100);color:var(--g700);padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;}
+        .bcfg{background:var(--b100);color:var(--b700);padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;}
+        .badd{background:var(--a100);color:var(--a700);padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;}
 
-  .istats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-  .isc{background:var(--s800);border-radius:12px;padding:16px;text-align:center;}
-  .isv{font-size:26px;font-weight:800;margin-bottom:3px;}
-  .isl{font-size:10px;color:rgba(255,255,255,0.5);line-height:1.4;}
-  .isg{color:var(--g400);}.isb{color:var(--b400);}.isa{color:var(--a400);}.ist{color:var(--t500);}
+        .istats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+        .isc{background:var(--s800);border-radius:12px;padding:16px;text-align:center;}
+        .isv{font-size:26px;font-weight:800;margin-bottom:3px;}
+        .isl{font-size:10px;color:rgba(255,255,255,0.5);line-height:1.4;}
+        .isg{color:var(--g400);}.isb{color:var(--b400);}.isa{color:var(--a400);}.ist{color:var(--t500);}
 
-  /* PAGE 7 */
-  .aud-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
-  .aud-lbl::after{content:'';flex:1;height:1px;background:var(--s200);}
-  .albiz{color:var(--g600);}
-  .altech{color:var(--b600);}
-  .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-  .cap{border-radius:11px;padding:14px 13px;border:1px solid;}
-  .capbiz{background:var(--g50);border-color:var(--g200);}
-  .captech{background:var(--b50);border-color:var(--b200);}
-  .cap h4{font-size:12px;font-weight:700;margin-bottom:3px;}
-  .cap p{font-size:11px;line-height:1.4;}
-  .capbiz h4{color:var(--g800);}.capbiz p{color:var(--g700);}
-  .captech h4{color:var(--b800);}.captech p{color:var(--b700);}
+        /* PAGE 7 */
+        .aud-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+        .aud-lbl::after{content:'';flex:1;height:1px;background:var(--s200);}
+        .albiz{color:var(--g600);}
+        .altech{color:var(--b600);}
+        .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+        .cap{border-radius:11px;padding:14px 13px;border:1px solid;}
+        .capbiz{background:var(--g50);border-color:var(--g200);}
+        .captech{background:var(--b50);border-color:var(--b200);}
+        .cap h4{font-size:12px;font-weight:700;margin-bottom:3px;}
+        .cap p{font-size:11px;line-height:1.4;}
+        .capbiz h4{color:var(--g800);}.capbiz p{color:var(--g700);}
+        .captech h4{color:var(--b800);}.captech p{color:var(--b700);}
 
-  .vtbl{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px;}
-  .vtbl th{padding:9px 12px;background:var(--s800);color:#fff;font-size:10px;font-weight:700;text-align:left;letter-spacing:0.5px;}
-  .vtbl th:first-child{border-radius:10px 0 0 0;}
-  .vtbl th:last-child{border-radius:0 10px 0 0;}
-  .vtbl td{padding:9px 12px;border-bottom:1px solid var(--s100);}
-  .vtbl tr:last-child td{border-bottom:none;}
-  .vtbl tr:hover td{background:var(--s50);}
-  .vtm{font-weight:700;color:var(--s700);}
-  .vtc{color:var(--r600);font-weight:600;}
-  .vtt{color:var(--g600);font-weight:600;}
-  .vtv{color:var(--b700);font-weight:600;}
+        .vtbl{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px;}
+        .vtbl th{padding:9px 12px;background:var(--s800);color:#fff;font-size:10px;font-weight:700;text-align:left;letter-spacing:0.5px;}
+        .vtbl th:first-child{border-radius:10px 0 0 0;}
+        .vtbl th:last-child{border-radius:0 10px 0 0;}
+        .vtbl td{padding:9px 12px;border-bottom:1px solid var(--s100);}
+        .vtbl tr:last-child td{border-bottom:none;}
+        .vtbl tr:hover td{background:var(--s50);}
+        .vtm{font-weight:700;color:var(--s700);}
+        .vtc{color:var(--r600);font-weight:600;}
+        .vtt{color:var(--g600);font-weight:600;}
+        .vtv{color:var(--b700);font-weight:600;}
 
-  .cta{background:linear-gradient(135deg,var(--g600),var(--t600));border-radius:14px;padding:28px 32px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;}
-  .cta-t h3{font-size:19px;font-weight:800;color:#fff;margin-bottom:5px;}
-  .cta-t p{font-size:13px;color:rgba(255,255,255,0.7);}
-  .cta-a{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
-  .cbtn{padding:10px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;white-space:nowrap;transition:all 0.2s;}
-  .cp{background:#fff;color:var(--g700);}.cp:hover{background:var(--g50);}
-  .cs{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);}.cs:hover{background:rgba(255,255,255,0.25);}
-  .cta-note{font-size:10px;color:rgba(255,255,255,0.5);text-align:right;margin-top:2px;}
+        .cta{background:linear-gradient(135deg,var(--g600),var(--t600));border-radius:14px;padding:28px 32px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;}
+        .cta-t h3{font-size:19px;font-weight:800;color:#fff;margin-bottom:5px;}
+        .cta-t p{font-size:13px;color:rgba(255,255,255,0.7);}
+        .cta-a{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
+        .cbtn{padding:10px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;white-space:nowrap;transition:all 0.2s;}
+        .cp{background:#fff;color:var(--g700);}.cp:hover{background:var(--g50);}
+        .cs{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);}.cs:hover{background:rgba(255,255,255,0.25);}
+        .cta-note{font-size:10px;color:rgba(255,255,255,0.5);text-align:right;margin-top:2px;}
 
-  @media(max-width:860px){
-    .mrow,.sgrid,.sf-phases,.cgrid,.istats{grid-template-columns:repeat(2,1fr);}
-    .qpair{grid-template-columns:1fr;}
-    .cta{grid-template-columns:1fr;}
-    .cta-a{align-items:flex-start;}
-  }
-</style>
+        @media(max-width:860px){
+          .mrow,.sgrid,.sf-phases,.cgrid,.istats{grid-template-columns:repeat(2,1fr);}
+          .qpair{grid-template-columns:1fr;}
+          .cta{grid-template-columns:1fr;}
+          .cta-a{align-items:flex-start;}
+        }
+    </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">Customer Loyalty Platform <span>/ Zero Risk Migration</span></div>
-  <button class="nav-btn active" onclick="show('p1',this)">Overview</button>
-  <button class="nav-btn" onclick="show('p2',this)">Strangler Fig</button>
-  <button class="nav-btn" onclick="show('p3',this)">Technology</button>
-  <button class="nav-btn" onclick="show('p4',this)">Timeline</button>
-  <button class="nav-btn" onclick="show('p5',this)">Data Flow</button>
-  <button class="nav-btn" onclick="show('p6',this)">Change Impact</button>
-  <button class="nav-btn" onclick="show('p7',this)">Value</button>
+    <div class="nav-logo">Customer Loyalty Platform <span>/ Zero Risk Migration</span></div>
+    <button class="nav-btn active" onclick="show('p1',this)">Overview</button>
+    <button class="nav-btn" onclick="show('p2',this)">Strangler Fig</button>
+    <button class="nav-btn" onclick="show('p3',this)">Technology</button>
+    <button class="nav-btn" onclick="show('p4',this)">Timeline</button>
+    <button class="nav-btn" onclick="show('p5',this)">Data Flow</button>
+    <button class="nav-btn" onclick="show('p6',this)">Change Impact</button>
+    <button class="nav-btn" onclick="show('p7',this)">Value</button>
 </nav>
 
 <!-- PAGE 1 -->
 <div id="p1" class="page active">
-  <div class="hero">
-    <div class="hero-badge">Executive Technical Deep-Dive</div>
-    <h1>Zero Risk Migration Strategy</h1>
-    <p>Global retailer · Customer Profile & Loyalty · 6-month delivery window</p>
-  </div>
-  <div class="container">
-    <div class="mrow">
-      <div class="mc red"><div class="mc-top">Latency</div><div class="mc-val">60ms</div><div class="mc-sub">Current p95 · <strong>Target 30ms</strong><br>Failing outside peak season</div></div>
-      <div class="mc amb"><div class="mc-top">Complexity</div><div class="mc-val">45+</div><div class="mc-sub">Normalised tables<br><strong>JOIN on every request</strong></div></div>
-      <div class="mc blu"><div class="mc-top">Peak Load</div><div class="mc-val">5×</div><div class="mc-sub">Holiday season surge<br><strong>Failing at 1× today</strong></div></div>
-      <div class="mc pur"><div class="mc-top">EU Customers</div><div class="mc-val">4.8M</div><div class="mc-sub">GDPR in scope<br><strong>~15% of total base</strong></div></div>
+    <div class="hero">
+        <div class="hero-badge">Executive Technical Deep-Dive</div>
+        <h1>Zero Risk Migration Strategy</h1>
+        <p>Global retailer · Customer Profile & Loyalty · 6-month delivery window</p>
     </div>
+    <div class="container">
+        <div class="mrow">
+            <div class="mc red">
+                <div class="mc-top">Latency</div>
+                <div class="mc-val">60ms</div>
+                <div class="mc-sub">Current p95 · <strong>Target 30ms</strong><br>Failing outside peak season</div>
+            </div>
+            <div class="mc amb">
+                <div class="mc-top">Complexity</div>
+                <div class="mc-val">45+</div>
+                <div class="mc-sub">Normalised tables<br><strong>JOIN on every request</strong></div>
+            </div>
+            <div class="mc blu">
+                <div class="mc-top">Peak Load</div>
+                <div class="mc-val">5×</div>
+                <div class="mc-sub">Holiday season surge<br><strong>Failing at 1× today</strong></div>
+            </div>
+            <div class="mc pur">
+                <div class="mc-top">EU Customers</div>
+                <div class="mc-val">4.8M</div>
+                <div class="mc-sub">GDPR in scope<br><strong>~15% of total base</strong></div>
+            </div>
+        </div>
 
-    <div class="stag">The Problem</div>
-    <div class="sh">A product velocity problem. Not a database problem.</div>
-    <div class="pgrid">
-      <div class="prob"><h4>Every feature requires a schema migration</h4><p>New loyalty attribute = coordinated change across 45+ tables</p></div>
-      <div class="prob"><h4>Performance degrading before peak season</h4><p>60ms p95 on a normal day — 5× peak load never tested</p></div>
+        <div class="stag">The Problem</div>
+        <div class="sh">A product velocity problem. Not a database problem.</div>
+        <div class="pgrid">
+            <div class="prob"><h4>Every feature requires a schema migration</h4>
+                <p>New loyalty attribute = coordinated change across 45+ tables</p></div>
+            <div class="prob"><h4>Performance degrading before peak season</h4>
+                <p>60ms p95 on a normal day — 5× peak load never tested</p></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="stag">The Solution</div>
+        <div class="sh">Four principles. One coherent architecture.</div>
+        <div class="sgrid">
+            <div class="sol">
+                <div class="si sig">⚡</div>
+                <h3>Performance by Design</h3>
+                <p>Single document fetch replaces multi-table JOIN. 60ms → &lt;30ms p95.</p></div>
+            <div class="sol">
+                <div class="si sib">📈</div>
+                <h3>Horizontal Scalability</h3>
+                <p>Sharding distributes 32M records. 5× peak by design.</p></div>
+            <div class="sol">
+                <div class="si sit">🔒</div>
+                <h3>GDPR by Design</h3>
+                <p>EU data pinned at storage layer. Architecture, not application logic.</p></div>
+            <div class="sol">
+                <div class="si sia">🌿</div>
+                <h3>Zero-Risk Migration</h3>
+                <p>Strangler Fig + API Gateway routing. No rewrite. Instant rollback.</p></div>
+        </div>
     </div>
-
-    <div class="divider"></div>
-
-    <div class="stag">The Solution</div>
-    <div class="sh">Four principles. One coherent architecture.</div>
-    <div class="sgrid">
-      <div class="sol"><div class="si sig">⚡</div><h3>Performance by Design</h3><p>Single document fetch replaces multi-table JOIN. 60ms → &lt;30ms p95.</p></div>
-      <div class="sol"><div class="si sib">📈</div><h3>Horizontal Scalability</h3><p>Atlas sharding distributes 32M records. 5× peak by design.</p></div>
-      <div class="sol"><div class="si sit">🔒</div><h3>GDPR by Design</h3><p>EU data pinned at storage layer. Architecture, not application logic.</p></div>
-      <div class="sol"><div class="si sia">🌿</div><h3>Zero-Risk Migration</h3><p>Strangler Fig + API Gateway routing. No rewrite. Instant rollback.</p></div>
-    </div>
-  </div>
 </div>
 
 <!-- PAGE 2 -->
 <div id="p2" class="page">
-  <div class="hero" style="padding:36px 1.75rem 32px;">
-    <div class="hero-badge">Migration Pattern</div>
-    <h1 style="font-size:26px;">The Strangler Fig Pattern</h1>
-    <p>New capability grows alongside legacy. Traffic shifts incrementally. Rollback is one config change away.</p>
-  </div>
-  <div class="container" style="padding-top:24px;">
-    <div class="sf-why">Legacy RDBMS stays live throughout all 6 months. Traffic shifted via API Gateway weighted routing — a configuration change, not a deployment. No application rewrite required.</div>
-
-    <div class="sf-phases">
-      <div class="sfp">
-        <div class="sfp-lbl">Month 3 — Shadow Mode</div>
-        <div class="fcol">
-          <div class="fn fn-cli">Client</div>
-          <div class="farr">↓</div>
-          <div class="fn fn-api">API Gateway</div>
-          <div class="farr">↓</div>
-          <div class="fsplit">
-            <div class="fscol"><div class="fpct">0%</div><div class="fn fn-shd">Atlas<br>Shadow</div></div>
-            <div class="fscol"><div class="fpct">100%</div><div class="fn fn-leg">Legacy<br>RDBMS</div></div>
-          </div>
-          <div class="wbw">
-            <div class="wbr"><div class="wba" style="width:0%;"></div><div class="wbl" style="width:100%;"></div></div>
-            <div class="wbls"><span style="color:var(--g600);">Atlas 0%</span><span style="color:var(--r600);">Legacy 100%</span></div>
-          </div>
-          <div class="sfnote">Atlas reads compared in background. Zero customer exposure.</div>
-        </div>
-      </div>
-
-      <div class="sfp">
-        <div class="sfp-lbl">Month 4 — 50% Split</div>
-        <div class="fcol">
-          <div class="fn fn-cli">Client</div>
-          <div class="farr">↓</div>
-          <div class="fn fn-api">API Gateway</div>
-          <div class="farr">↓</div>
-          <div class="fsplit">
-            <div class="fscol"><div class="fpct">50%</div><div class="fn fn-atl">Atlas<br>MongoDB</div></div>
-            <div class="fscol"><div class="fpct">50%</div><div class="fn fn-leg">Legacy<br>RDBMS</div></div>
-          </div>
-          <div class="wbw">
-            <div class="wbr"><div class="wba" style="width:50%;"></div><div class="wbl" style="width:50%;"></div></div>
-            <div class="wbls"><span style="color:var(--g600);">Atlas 50%</span><span style="color:var(--r600);">Legacy 50%</span></div>
-          </div>
-          <div class="sfnote">Non-EU first. EU after GDPR audit. Loyalty balance stays on legacy.</div>
-        </div>
-      </div>
-
-      <div class="sfp">
-        <div class="sfp-lbl">Month 5 — Full Cutover</div>
-        <div class="fcol">
-          <div class="fn fn-cli">Client</div>
-          <div class="farr">↓</div>
-          <div class="fn fn-api">API Gateway</div>
-          <div class="farr">↓</div>
-          <div class="fsplit">
-            <div class="fscol"><div class="fpct">100%</div><div class="fn fn-atl">Atlas<br>MongoDB</div></div>
-            <div class="fscol"><div class="fpct">0%</div><div class="fn fn-fad">Legacy<br>Standby</div></div>
-          </div>
-          <div class="wbw">
-            <div class="wbr"><div class="wba" style="width:100%;"></div><div class="wbl" style="width:0%;"></div></div>
-            <div class="wbls"><span style="color:var(--g600);">Atlas 100%</span><span style="color:var(--s400);">Legacy 0%</span></div>
-          </div>
-          <div class="sfnote">Legacy read-only safety net. Decommission Month 9–12.</div>
-        </div>
-      </div>
+    <div class="hero" style="padding:36px 1.75rem 32px;">
+        <div class="hero-badge">Migration Pattern</div>
+        <h1 style="font-size:26px;">The Strangler Fig Pattern</h1>
+        <p>New capability grows alongside legacy. Traffic shifts incrementally. Rollback is one config change away.</p>
     </div>
+    <div class="container" style="padding-top:24px;">
+        <div class="sf-why">Legacy RDBMS stays live throughout all 6 months. Traffic shifted via API Gateway weighted
+            routing — a configuration change, not a deployment. No application rewrite required.
+        </div>
 
-    <div class="sfbs">
-      <div class="sfb"><h4>Zero Application Rewrite</h4><p>Endpoints, contracts, and client apps unchanged throughout.</p></div>
-      <div class="sfb"><h4>Validated Before Shifting</h4><p>Shadow mode proves correctness before any customer sees Atlas data.</p></div>
-      <div class="sfb"><h4>Instant Rollback</h4><p>Gateway weight change = rollback. Seconds. No deployment required.</p></div>
+        <div class="sf-phases">
+            <div class="sfp">
+                <div class="sfp-lbl">Month 3 — Shadow Mode</div>
+                <div class="fcol">
+                    <div class="fn fn-cli">Client</div>
+                    <div class="farr">↓</div>
+                    <div class="fn fn-api">API Gateway</div>
+                    <div class="farr">↓</div>
+                    <div class="fsplit">
+                        <div class="fscol">
+                            <div class="fpct">0%</div>
+                            <div class="fn fn-shd">New<br>Capability</div>
+                        </div>
+                        <div class="fscol">
+                            <div class="fpct">100%</div>
+                            <div class="fn fn-leg">Legacy<br>RDBMS</div>
+                        </div>
+                    </div>
+                    <div class="wbw">
+                        <div class="wbr">
+                            <div class="wba" style="width:0%;"></div>
+                            <div class="wbl" style="width:100%;"></div>
+                        </div>
+                        <div class="wbls"><span style="color:var(--g600);">New 0%</span><span
+                                style="color:var(--r600);">Legacy 100%</span></div>
+                    </div>
+                    <div class="sfnote">New reads compared in background. Zero customer exposure.</div>
+                </div>
+            </div>
+
+            <div class="sfp">
+                <div class="sfp-lbl">Month 4 — 50% Split</div>
+                <div class="fcol">
+                    <div class="fn fn-cli">Client</div>
+                    <div class="farr">↓</div>
+                    <div class="fn fn-api">API Gateway</div>
+                    <div class="farr">↓</div>
+                    <div class="fsplit">
+                        <div class="fscol">
+                            <div class="fpct">50%</div>
+                            <div class="fn fn-atl">New<br>Capability</div>
+                        </div>
+                        <div class="fscol">
+                            <div class="fpct">50%</div>
+                            <div class="fn fn-leg">Legacy<br>RDBMS</div>
+                        </div>
+                    </div>
+                    <div class="wbw">
+                        <div class="wbr">
+                            <div class="wba" style="width:50%;"></div>
+                            <div class="wbl" style="width:50%;"></div>
+                        </div>
+                        <div class="wbls"><span style="color:var(--g600);">New 50%</span><span
+                                style="color:var(--r600);">Legacy 50%</span></div>
+                    </div>
+                    <div class="sfnote">Non-EU first. EU after GDPR audit. Loyalty balance stays on legacy.</div>
+                </div>
+            </div>
+
+            <div class="sfp">
+                <div class="sfp-lbl">Month 5 — Full Cutover</div>
+                <div class="fcol">
+                    <div class="fn fn-cli">Client</div>
+                    <div class="farr">↓</div>
+                    <div class="fn fn-api">API Gateway</div>
+                    <div class="farr">↓</div>
+                    <div class="fsplit">
+                        <div class="fscol">
+                            <div class="fpct">100%</div>
+                            <div class="fn fn-atl">New<br>Capability</div>
+                        </div>
+                        <div class="fscol">
+                            <div class="fpct">0%</div>
+                            <div class="fn fn-fad">Legacy<br>Standby</div>
+                        </div>
+                    </div>
+                    <div class="wbw">
+                        <div class="wbr">
+                            <div class="wba" style="width:100%;"></div>
+                            <div class="wbl" style="width:0%;"></div>
+                        </div>
+                        <div class="wbls"><span style="color:var(--g600);">New 100%</span><span
+                                style="color:var(--s400);">Legacy 0%</span></div>
+                    </div>
+                    <div class="sfnote">Legacy read-only safety net. Decommission Month 9–12.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sfbs">
+            <div class="sfb"><h4>Zero Application Rewrite</h4>
+                <p>Endpoints, contracts, and client apps unchanged throughout.</p></div>
+            <div class="sfb"><h4>Validated Before Shifting</h4>
+                <p>Shadow mode proves correctness before any customer sees New Capability data.</p></div>
+            <div class="sfb"><h4>Instant Rollback</h4>
+                <p>Gateway weight change = rollback. Seconds. No deployment required.</p></div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- PAGE 3 -->
@@ -375,6 +440,7 @@
     <p>Two architectures evaluated. One recommendation grounded in the engagement constraints.</p>
   </div>
   <div class="container" style="padding-top:24px;">
+
     <div class="stag">The Query Problem</div>
     <div class="sh" style="margin-bottom:14px;">Multi-table JOIN vs single document fetch</div>
     <div class="qpair">
@@ -414,299 +480,502 @@
       </div>
     </div>
 
+    <div class="stag" style="margin-bottom:10px;">How We Get to 30ms</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;">
+      <div style="background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--g700);">5–15ms</div>
+        <div style="font-size:11px;font-weight:700;color:var(--g600);margin-top:4px;">Document fetch</div>
+        <div style="font-size:10px;color:var(--s400);margin-top:2px;">Single collection read</div>
+      </div>
+      <div style="background:var(--b50);border:1px solid var(--b200);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--b700);">2–5ms</div>
+        <div style="font-size:11px;font-weight:700;color:var(--b600);margin-top:4px;">Network + TLS</div>
+        <div style="font-size:10px;color:var(--s400);margin-top:2px;">With compression</div>
+      </div>
+      <div style="background:var(--a50);border:1px solid var(--a200);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--a700);">2–3ms</div>
+        <div style="font-size:11px;font-weight:700;color:var(--a600);margin-top:4px;">Serialisation</div>
+        <div style="font-size:10px;color:var(--s400);margin-top:2px;">With projections</div>
+      </div>
+      <div style="background:var(--s800);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--g400);">&lt;30ms</div>
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);margin-top:4px;">Total p95 target</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">Atlas overhead ~1ms</div>
+      </div>
+    </div>
+
+    <div class="stag" style="margin-bottom:10px;">Technology Comparison</div>
     <table class="ctbl">
-      <thead><tr><th>Capability</th><th>DynamoDB</th><th>MongoDB Atlas</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>DynamoDB</th>
+          <th>MongoDB Atlas</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td class="ctd">Access pattern flexibility</td><td class="cno">Rigid — must be defined upfront</td><td class="cyes">Rich querying without redesign</td></tr>
-        <tr><td class="ctd">Schema evolution</td><td class="cno">Table redesign on every pivot</td><td class="cyes">Add a field. Ship in one sprint.</td></tr>
-        <tr><td class="ctd">Vendor lock-in</td><td class="cno">AWS only — no exit without rewrite</td><td class="cyes">Multi-cloud. Open data model.</td></tr>
-        <tr><td class="ctd">GDPR enforcement</td><td class="cwarn">Application layer only</td><td class="cyes">Storage layer via Atlas Global Clusters</td></tr>
-        <tr><td class="ctd">Migration budget fit</td><td class="cno">45+ table redesign exceeds budget</td><td class="cyes">CDC via Change Streams. Zero app changes.</td></tr>
+        <tr>
+          <td class="ctd">Access pattern flexibility</td>
+          <td class="cno">Partition key constrains queries — new patterns need GSI redesign or backfill</td>
+          <td class="cyes">Index any field retrospectively — new pattern = new index, no redesign</td>
+        </tr>
+        <tr>
+          <td class="ctd">Schema evolution</td>
+          <td class="cyes">Schemaless — new attributes added at write time</td>
+          <td class="cyes">Schemaless — new attributes added at write time</td>
+        </tr>
+        <tr>
+          <td class="ctd">Vendor lock-in</td>
+          <td class="cno">AWS only — no exit without full rewrite</td>
+          <td class="cyes">Multi-cloud. Open data model. Portable.</td>
+        </tr>
+        <tr>
+          <td class="ctd">GDPR enforcement</td>
+          <td class="cwarn">Global Tables — enforced at network and IAM layer</td>
+          <td class="cyes">Atlas Global Clusters — enforced at storage routing layer</td>
+        </tr>
+        <tr>
+          <td class="ctd">CDC for migration</td>
+          <td class="cyes">DMS replicates Legacy RDBMS → DynamoDB directly</td>
+          <td class="cyes">DMS replicates Legacy RDBMS → Atlas directly</td>
+        </tr>
+        <tr>
+          <td class="ctd">Migration path</td>
+          <td class="cno">45-table → single-table requires full access pattern redesign within budget constraint</td>
+          <td class="cyes">Document model maps naturally — Strangler Fig works without access pattern redesign</td>
+        </tr>
       </tbody>
     </table>
 
     <div class="winner">
       <h3>MongoDB Atlas — the natural fit</h3>
       <div class="wgrid">
-        <div class="wg"><strong>Limited Refactoring Budget</strong>Document model + CDC = migration with no application code changes.</div>
-        <div class="wg"><strong>Future-Proof Architecture</strong>Multi-cloud portability. Open data model. No proprietary dependency.</div>
-        <div class="wg"><strong>GDPR at Storage Layer</strong>Atlas Global Clusters enforce residency. Cannot be accidentally bypassed.</div>
+        <div class="wg">
+          <strong>Migration Path</strong>
+          Document model absorbs relational structure naturally. No single-table redesign. No access pattern commitment upfront.
+        </div>
+        <div class="wg">
+          <strong>Future-Proof</strong>
+          Multi-cloud portability. Open data model. Index any field as requirements evolve.
+        </div>
+        <div class="wg">
+          <strong>GDPR at Storage Layer</strong>
+          Atlas Global Clusters enforce residency at routing layer — architecturally harder to bypass than network controls.
+        </div>
       </div>
     </div>
+
   </div>
 </div>
-
 <!-- PAGE 4 -->
 <div id="p4" class="page">
-  <div class="hero" style="padding:36px 1.75rem 32px;">
-    <div class="hero-badge">Delivery Roadmap</div>
-    <h1 style="font-size:26px;">6-Month Migration Timeline</h1>
-    <p>Value delivered each month. Gates validate before proceeding. Rollback available at every step.</p>
-  </div>
-  <div class="container" style="padding-top:24px;">
-    <div class="gw">
-      <table class="gt">
-        <thead>
-          <tr>
-            <th>Workstream</th>
-            <th>M1<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">May</span></th>
-            <th>M2<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Jun</span></th>
-            <th>M3<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Jul</span></th>
-            <th>M4<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Aug</span></th>
-            <th>M5<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Sep</span></th>
-            <th>M6<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Oct</span></th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <!-- DISCOVERY -->
-          <tr>
-            <td><div class="gtk">Data Audit & Schema Design</div><div class="gcat">Discovery</div></td>
-            <td class="gcc"><span class="gb" style="background:var(--g500);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--g200);width:40%;"></span></td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">GDPR Residency Strategy</div><div class="gcat">Discovery</div></td>
-            <td class="gcc"><span class="gb" style="background:var(--g400);width:70%;"></span></td>
-            <td></td><td></td><td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">Shard Key Selection</div><div class="gcat">Discovery</div></td>
-            <td class="gcc"><span class="gb" style="background:var(--g400);width:60%;"></span></td>
-            <td></td><td></td><td></td><td></td><td></td>
-          </tr>
-
-          <!-- FOUNDATION -->
-          <tr>
-            <td><div class="gtk">Infra + EU Region Provision</div><div class="gcat">Foundation</div></td>
-            <td class="gcc"><span class="gb" style="background:var(--b300);width:50%;"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--b500);"></span></td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-
-          <!-- MIGRATION -->
-          <tr>
-            <td><div class="gtk">CDC Pipeline → Atlas</div><div class="gcat">Migration — starts M2</div></td>
-            <td></td>
-            <td class="gcc"><span class="gb" style="background:var(--a500);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--a400);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--a400);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--a200);width:35%;"></span></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">Bulk Data Migration (32M)</div><div class="gcat">Migration — 12M active + 20M inactive</div></td>
-            <td></td>
-            <td class="gcc"><span class="gb" style="background:var(--a300);width:50%;"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--a500);"></span></td>
-            <td></td><td></td><td></td>
-          </tr>
-
-          <!-- BUILD -->
-          <tr>
-            <td><div class="gtk">Core Profile APIs on Atlas</div><div class="gcat">Build</div></td>
-            <td></td>
-            <td class="gcc"><span class="gb" style="background:var(--g500);"></span></td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">EU Region + GDPR Controls</div><div class="gcat">Build</div></td>
-            <td></td>
-            <td class="gcc"><span class="gb" style="background:var(--g400);"></span></td>
-            <td></td><td></td><td></td><td></td>
-          </tr>
-
-          <!-- TRAFFIC SHIFT -->
-          <tr>
-            <td><div class="gtk">Shadow Mode + 5% Traffic</div><div class="gcat">Traffic Shift</div></td>
-            <td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:var(--t500);"></span></td>
-            <td></td><td></td><td></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">50% Weighted Routing</div><div class="gcat">Traffic Shift</div></td>
-            <td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:var(--t500);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--t500);opacity:0.3;width:20%;"></span></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">100% Cutover</div><div class="gcat">Traffic Shift</div></td>
-            <td></td><td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:var(--g600);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--g200);width:30%;"></span></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">Reverse CDC → Legacy</div><div class="gcat">Cutover Safety Net</div></td>
-            <td></td><td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:#7c3aed;"></span></td>
-            <td class="gcc"><span class="gb" style="background:#7c3aed;opacity:0.35;width:35%;"></span></td>
-          </tr>
-
-          <!-- VALIDATION -->
-          <tr>
-            <td><div class="gtk">p95 Latency Validation (30ms)</div><div class="gcat">Validation</div></td>
-            <td></td>
-            <td class="gcc"><span class="gb" style="background:var(--b400);width:60%;"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--b500);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--b400);"></span></td>
-            <td></td><td></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">5X Load Simulation</div><div class="gcat">Validation — Peak Readiness</div></td>
-            <td></td><td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:var(--b600);"></span></td>
-            <td></td>
-          </tr>
-
-          <!-- COMPLIANCE -->
-          <tr>
-            <td><div class="gtk">GDPR Compliance Audit</div><div class="gcat">Compliance</div></td>
-            <td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:#7c3aed;opacity:0.7;"></span></td>
-            <td></td><td></td>
-          </tr>
-
-          <!-- LOYALTY API -->
-          <tr>
-            <td><div class="gtk">Loyalty Points API Live ✓</div><div class="gcat">Committed Deliverable</div></td>
-            <td></td><td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:var(--g700);"></span></td>
-            <td></td>
-          </tr>
-
-          <!-- OPERATIONS -->
-          <tr>
-            <td><div class="gtk">Team Upskilling</div><div class="gcat">Operations</div></td>
-            <td></td>
-            <td class="gcc"><span class="gb" style="background:var(--b200);width:40%;"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--b300);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--b400);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--b500);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--b300);"></span></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">Ops Runbooks</div><div class="gcat">Operations</div></td>
-            <td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:var(--b400);"></span></td>
-            <td class="gcc"><span class="gb" style="background:var(--b300);width:50%;"></span></td>
-            <td></td>
-          </tr>
-
-          <!-- HANDOVER -->
-          <tr>
-            <td><div class="gtk">Stabilisation + Handover</div><div class="gcat">Closure</div></td>
-            <td></td><td></td><td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:var(--g500);"></span></td>
-          </tr>
-          <tr>
-            <td><div class="gtk">Legacy Decommission Plan</div><div class="gcat">Closure — Month 9–12</div></td>
-            <td></td><td></td><td></td><td></td><td></td>
-            <td class="gcc"><span class="gb" style="background:var(--g300,#86efac);"></span></td>
-          </tr>
-
-          <!-- GATES -->
-          <tr style="background:var(--s50);">
-            <td><div class="gtk" style="color:var(--g700);">✓ Gate</div></td>
-            <td class="gcc"><span class="gg ggg">G1</span></td>
-            <td class="gcc"><span class="gg ggg">G2</span></td>
-            <td class="gcc"><span class="gg ggg">G3</span></td>
-            <td class="gcc"><span class="gg ggg">G4</span></td>
-            <td class="gcc"><span class="gg ggc">✓</span></td>
-            <td class="gcc"><span class="gg ggc">✓</span></td>
-          </tr>
-
-        </tbody>
-      </table>
+    <div class="hero" style="padding:36px 1.75rem 32px;">
+        <div class="hero-badge">Delivery Roadmap</div>
+        <h1 style="font-size:26px;">6-Month Migration Timeline</h1>
+        <p>Value delivered each month. Gates validate before proceeding. Rollback available at every step.</p>
     </div>
+    <div class="container" style="padding-top:24px;">
+        <div class="gw">
+            <table class="gt">
+                <thead>
+                <tr>
+                    <th>Workstream</th>
+                    <th>M1<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">May</span></th>
+                    <th>M2<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Jun</span></th>
+                    <th>M3<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Jul</span></th>
+                    <th>M4<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Aug</span></th>
+                    <th>M5<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Sep</span></th>
+                    <th>M6<br><span style="font-weight:400;font-size:9px;color:rgba(255,255,255,0.4);">Oct</span></th>
+                </tr>
+                </thead>
+                <tbody>
 
-    <div style="font-size:10px;color:var(--s400);margin-bottom:14px;display:flex;gap:16px;flex-wrap:wrap;">
-      <span><span style="display:inline-block;width:10px;height:6px;background:var(--a500);border-radius:2px;margin-right:4px;vertical-align:middle;"></span>CDC active M2–M5 then stops</span>
-      <span><span style="display:inline-block;width:10px;height:6px;background:#7c3aed;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Reverse CDC M5 (Atlas→Legacy safety sync)</span>
-      <span><span style="display:inline-block;width:10px;height:6px;background:var(--t500);border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Traffic shifting M3–M5</span>
-      <span><span style="display:inline-block;width:10px;height:6px;background:var(--b500);border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Validation</span>
+                <!-- DISCOVERY -->
+                <tr>
+                    <td>
+                        <div class="gtk">Data Audit & Schema Design</div>
+                        <div class="gcat">Discovery</div>
+                    </td>
+                    <td class="gcc"><span class="gb" style="background:var(--g500);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--g200);width:40%;"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">GDPR Residency Strategy</div>
+                        <div class="gcat">Discovery</div>
+                    </td>
+                    <td class="gcc"><span class="gb" style="background:var(--g400);width:70%;"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">Shard Key Selection</div>
+                        <div class="gcat">Discovery</div>
+                    </td>
+                    <td class="gcc"><span class="gb" style="background:var(--g400);width:60%;"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <!-- FOUNDATION -->
+                <tr>
+                    <td>
+                        <div class="gtk">Infra + EU Region Provision</div>
+                        <div class="gcat">Foundation</div>
+                    </td>
+                    <td class="gcc"><span class="gb" style="background:var(--b300);width:50%;"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b500);"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <!-- MIGRATION -->
+                <tr>
+                    <td>
+                        <div class="gtk">CDC Pipeline → Atlas</div>
+                        <div class="gcat">Migration — starts M2</div>
+                    </td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--a500);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--a400);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--a400);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--a200);width:35%;"></span></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">Bulk Data Migration (32M)</div>
+                        <div class="gcat">Migration — 12M active + 20M inactive</div>
+                    </td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--a300);width:50%;"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--a500);"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <!-- BUILD -->
+                <tr>
+                    <td>
+                        <div class="gtk">Core Profile APIs on Atlas</div>
+                        <div class="gcat">Build</div>
+                    </td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--g500);"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">EU Region + GDPR Controls</div>
+                        <div class="gcat">Build</div>
+                    </td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--g400);"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <!-- TRAFFIC SHIFT -->
+                <tr>
+                    <td>
+                        <div class="gtk">Shadow Mode + 5% Traffic</div>
+                        <div class="gcat">Traffic Shift</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--t500);"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">50% Weighted Routing</div>
+                        <div class="gcat">Traffic Shift</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--t500);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--t500);opacity:0.3;width:20%;"></span></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">100% Cutover</div>
+                        <div class="gcat">Traffic Shift</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--g600);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--g200);width:30%;"></span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">Reverse CDC → Legacy</div>
+                        <div class="gcat">Cutover Safety Net</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:#7c3aed;"></span></td>
+                    <td class="gcc"><span class="gb" style="background:#7c3aed;opacity:0.35;width:35%;"></span></td>
+                </tr>
+
+                <!-- VALIDATION -->
+                <tr>
+                    <td>
+                        <div class="gtk">p95 Latency Validation (30ms)</div>
+                        <div class="gcat">Validation</div>
+                    </td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b400);width:60%;"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b500);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b400);"></span></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">5X Load Simulation</div>
+                        <div class="gcat">Validation — Peak Readiness</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b600);"></span></td>
+                    <td></td>
+                </tr>
+
+                <!-- COMPLIANCE -->
+                <tr>
+                    <td>
+                        <div class="gtk">GDPR Compliance Audit</div>
+                        <div class="gcat">Compliance</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:#7c3aed;opacity:0.7;"></span></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <!-- LOYALTY API -->
+                <tr>
+                    <td>
+                        <div class="gtk">Loyalty Points API Live ✓</div>
+                        <div class="gcat">Committed Deliverable</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--g700);"></span></td>
+                    <td></td>
+                </tr>
+
+                <!-- OPERATIONS -->
+                <tr>
+                    <td>
+                        <div class="gtk">Team Upskilling</div>
+                        <div class="gcat">Operations</div>
+                    </td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b200);width:40%;"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b300);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b400);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b500);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b300);"></span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">Ops Runbooks</div>
+                        <div class="gcat">Operations</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b400);"></span></td>
+                    <td class="gcc"><span class="gb" style="background:var(--b300);width:50%;"></span></td>
+                    <td></td>
+                </tr>
+
+                <!-- HANDOVER -->
+                <tr>
+                    <td>
+                        <div class="gtk">Stabilisation + Handover</div>
+                        <div class="gcat">Closure</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--g500);"></span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="gtk">Legacy Decommission Plan</div>
+                        <div class="gcat">Closure — Month 9–12</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="gcc"><span class="gb" style="background:var(--g300,#86efac);"></span></td>
+                </tr>
+
+                <!-- GATES -->
+                <tr style="background:var(--s50);">
+                    <td>
+                        <div class="gtk" style="color:var(--g700);">✓ Gate</div>
+                    </td>
+                    <td class="gcc"><span class="gg ggg">G1</span></td>
+                    <td class="gcc"><span class="gg ggg">G2</span></td>
+                    <td class="gcc"><span class="gg ggg">G3</span></td>
+                    <td class="gcc"><span class="gg ggg">G4</span></td>
+                    <td class="gcc"><span class="gg ggc">✓</span></td>
+                    <td class="gcc"><span class="gg ggc">✓</span></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div style="font-size:10px;color:var(--s400);margin-bottom:14px;display:flex;gap:16px;flex-wrap:wrap;">
+            <span><span
+                    style="display:inline-block;width:10px;height:6px;background:var(--a500);border-radius:2px;margin-right:4px;vertical-align:middle;"></span>CDC active M2–M5 then stops</span>
+            <span><span
+                    style="display:inline-block;width:10px;height:6px;background:#7c3aed;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Reverse CDC M5 (Atlas→Legacy safety sync)</span>
+            <span><span
+                    style="display:inline-block;width:10px;height:6px;background:var(--t500);border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Traffic shifting M3–M5</span>
+            <span><span
+                    style="display:inline-block;width:10px;height:6px;background:var(--b500);border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Validation</span>
+        </div>
+
+        <div class="stag" style="margin-bottom:8px;">Milestone</div>
+        <div class="mscards">
+            <div class="msc" onclick="tms('ms1',this)">
+                <div class="msl">M1·May</div>
+                <div class="mst">Discovery</div>
+            </div>
+            <div class="msc" onclick="tms('ms2',this)">
+                <div class="msl">M2·Jun</div>
+                <div class="mst">Build</div>
+            </div>
+            <div class="msc" onclick="tms('ms3',this)">
+                <div class="msl">M3·Jul</div>
+                <div class="mst">Migration</div>
+            </div>
+            <div class="msc" onclick="tms('ms4',this)">
+                <div class="msl">M4·Aug</div>
+                <div class="mst">Scale</div>
+            </div>
+            <div class="msc" onclick="tms('ms5',this)">
+                <div class="msl">M5·Sep</div>
+                <div class="mst">Cutover</div>
+            </div>
+            <div class="msc" onclick="tms('ms6',this)">
+                <div class="msl">M6·Oct</div>
+                <div class="mst">Handover</div>
+            </div>
+        </div>
+
+        <div id="ms1" class="msd">
+            <h4>Month 1 — Discovery + Foundation</h4>
+            <ul>
+                <li>Full data audit across 45+ tables</li>
+                <li>Target document schema designed and validated</li>
+                <li>Shard key strategy confirmed — 32M records, 5× peak is day-one constraint</li>
+                <li>EU data residency architecture agreed</li>
+                <li>Infrastructure provisioned across required regions</li>
+            </ul>
+            <div class="msgate">Gate G1: Panel sign-off on document model and multi-region topology</div>
+        </div>
+
+        <div id="ms2" class="msd">
+            <h4>Month 2 — Build + Pilot</h4>
+            <ul>
+                <li>Core customer profile APIs live on new stack</li>
+                <li>CDC pipeline activated — dual-write operational from start of M2</li>
+                <li>EU region isolated and GDPR controls verified</li>
+                <li>Team upskilling begins</li>
+            </ul>
+            <div class="msgate">Gate G2: p95 read latency validated against 30ms target on representative dataset</div>
+        </div>
+
+        <div id="ms3" class="msd">
+            <h4>Month 3 — Migration + Validation</h4>
+            <ul>
+                <li>Full 32M records migrated and reconciled (12M active + 20M inactive)</li>
+                <li>5% production traffic on new stack</li>
+                <li>p95 latency baseline validated against 30ms target</li>
+                <li>Rollback procedure tested and documented</li>
+            </ul>
+            <div class="msgate">Gate G3: Zero data inconsistency confirmed · EU records confirmed in EU region only
+            </div>
+        </div>
+
+        <div id="ms4" class="msd">
+            <h4>Month 4 — Scaling + Hardening</h4>
+            <ul>
+                <li>50% traffic shifted via gateway weighted routing</li>
+                <li>Performance validated at 2× normal load</li>
+                <li>GDPR compliance audit completed</li>
+                <li>Operational runbooks drafted by customer team</li>
+            </ul>
+            <div class="msgate">Gate G4: p95 30ms met at 50% load · No GDPR findings outstanding</div>
+        </div>
+
+        <div id="ms5" class="msd">
+            <h4>Month 5 — Cutover + Peak Readiness</h4>
+            <ul>
+                <li>100% traffic on new stack</li>
+                <li>Legacy RDBMS in read-only mode</li>
+                <li>Loyalty Points API live — committed deliverable ✓</li>
+                <li>5× load simulation run and validated</li>
+                <li>New loyalty features shipping on new architecture</li>
+            </ul>
+            <div class="msgate">Gate: 2 weeks stable · 5× load test passed · No rollback triggered</div>
+        </div>
+
+        <div id="ms6" class="msd">
+            <h4>Month 6 — Stabilisation + Handover</h4>
+            <ul>
+                <li>Team fully autonomous on new stack</li>
+                <li>Legacy RDBMS decommission plan scoped and handed over</li>
+                <li>Backlog items prioritised and documented</li>
+                <li>Engagement closed</li>
+            </ul>
+            <div class="msgate">Gate: Ops signs off on readiness · Customer team leads — consulting team shadows</div>
+        </div>
+
     </div>
-
-    <div class="stag" style="margin-bottom:8px;">Milestone</div>
-    <div class="mscards">
-      <div class="msc" onclick="tms('ms1',this)"><div class="msl">M1·May</div><div class="mst">Discovery</div></div>
-      <div class="msc" onclick="tms('ms2',this)"><div class="msl">M2·Jun</div><div class="mst">Build</div></div>
-      <div class="msc" onclick="tms('ms3',this)"><div class="msl">M3·Jul</div><div class="mst">Migration</div></div>
-      <div class="msc" onclick="tms('ms4',this)"><div class="msl">M4·Aug</div><div class="mst">Scale</div></div>
-      <div class="msc" onclick="tms('ms5',this)"><div class="msl">M5·Sep</div><div class="mst">Cutover</div></div>
-      <div class="msc" onclick="tms('ms6',this)"><div class="msl">M6·Oct</div><div class="mst">Handover</div></div>
-    </div>
-
-    <div id="ms1" class="msd">
-      <h4>Month 1 — Discovery + Foundation</h4>
-      <ul>
-        <li>Full data audit across 45+ tables</li>
-        <li>Target document schema designed and validated</li>
-        <li>Shard key strategy confirmed — 32M records, 5× peak is day-one constraint</li>
-        <li>EU data residency architecture agreed</li>
-        <li>Infrastructure provisioned across required regions</li>
-      </ul>
-      <div class="msgate">Gate G1: Panel sign-off on document model and multi-region topology</div>
-    </div>
-
-    <div id="ms2" class="msd">
-      <h4>Month 2 — Build + Pilot</h4>
-      <ul>
-        <li>Core customer profile APIs live on new stack</li>
-        <li>CDC pipeline activated — dual-write operational from start of M2</li>
-        <li>EU region isolated and GDPR controls verified</li>
-        <li>Team upskilling begins</li>
-      </ul>
-      <div class="msgate">Gate G2: p95 read latency validated against 30ms target on representative dataset</div>
-    </div>
-
-    <div id="ms3" class="msd">
-      <h4>Month 3 — Migration + Validation</h4>
-      <ul>
-        <li>Full 32M records migrated and reconciled (12M active + 20M inactive)</li>
-        <li>5% production traffic on new stack</li>
-        <li>p95 latency baseline validated against 30ms target</li>
-        <li>Rollback procedure tested and documented</li>
-      </ul>
-      <div class="msgate">Gate G3: Zero data inconsistency confirmed · EU records confirmed in EU region only</div>
-    </div>
-
-    <div id="ms4" class="msd">
-      <h4>Month 4 — Scaling + Hardening</h4>
-      <ul>
-        <li>50% traffic shifted via gateway weighted routing</li>
-        <li>Performance validated at 2× normal load</li>
-        <li>GDPR compliance audit completed</li>
-        <li>Operational runbooks drafted by customer team</li>
-      </ul>
-      <div class="msgate">Gate G4: p95 30ms met at 50% load · No GDPR findings outstanding</div>
-    </div>
-
-    <div id="ms5" class="msd">
-      <h4>Month 5 — Cutover + Peak Readiness</h4>
-      <ul>
-        <li>100% traffic on new stack</li>
-        <li>Legacy RDBMS in read-only mode</li>
-        <li>Loyalty Points API live — committed deliverable ✓</li>
-        <li>5× load simulation run and validated</li>
-        <li>New loyalty features shipping on new architecture</li>
-      </ul>
-      <div class="msgate">Gate: 2 weeks stable · 5× load test passed · No rollback triggered</div>
-    </div>
-
-    <div id="ms6" class="msd">
-      <h4>Month 6 — Stabilisation + Handover</h4>
-      <ul>
-        <li>Team fully autonomous on new stack</li>
-        <li>Legacy RDBMS decommission plan scoped and handed over</li>
-        <li>Backlog items prioritised and documented</li>
-        <li>Engagement closed</li>
-      </ul>
-      <div class="msgate">Gate: Ops signs off on readiness · Customer team leads — consulting team shadows</div>
-    </div>
-
-  </div>
 </div>
 
 <!-- PAGE 5 -->
@@ -727,17 +996,98 @@
         <div class="dfhc">M5<span>Sep</span></div>
         <div class="dfhc">M6<span>Oct</span></div>
       </div>
-      <div class="dfrow"><div class="dflbl">Legacy RDBMS</div><div class="dfc"><div class="dp dpleg">Primary R/W</div></div><div class="dfc"><div class="dp dpleg">Primary R/W</div></div><div class="dfc"><div class="dp dpleg">Primary R/W</div></div><div class="dfc"><div class="dp dpleg">Primary R/W</div></div><div class="dfc"><div class="dp dpdual">Read-Only</div></div><div class="dfc"><div class="dp dpblk">Decommission</div></div></div>
-      <div class="dfrow"><div class="dflbl">MongoDB Atlas</div><div class="dfc"><div class="dp dpblk">Provisioning</div></div><div class="dfc"><div class="dp dpatl">Dual Write</div></div><div class="dfc"><div class="dp dpatl">Dual + Shadow</div></div><div class="dfc"><div class="dp dpatl">50% Reads</div></div><div class="dfc"><div class="dp dpdn">Primary R/W</div></div><div class="dfc"><div class="dp dpdn">Primary R/W</div></div></div>
-      <div class="dfrow"><div class="dflbl">Read Path</div><div class="dfc"><div class="dp dpleg">Legacy 100%</div></div><div class="dfc"><div class="dp dpleg">Legacy 100%</div></div><div class="dfc"><div class="dp dpsh">Shadow Mode</div></div><div class="dfc"><div class="dp dpsh">GW 50/50</div></div><div class="dfc"><div class="dp dpatl">Atlas 100%</div></div><div class="dfc"><div class="dp dpatl">Atlas 100%</div></div></div>
-      <div class="dfrow"><div class="dflbl">Write Path</div><div class="dfc"><div class="dp dpleg">Legacy Only</div></div><div class="dfc"><div class="dp dpdual">Dual Write</div></div><div class="dfc"><div class="dp dpdual">Dual Write</div></div><div class="dfc"><div class="dp dpdual">Dual Write</div></div><div class="dfc"><div class="dp dpatl">Atlas Primary</div></div><div class="dfc"><div class="dp dpatl">Atlas Primary</div></div></div>
-      <div class="dfrow"><div class="dflbl">CDC</div><div class="dfc"><div class="dp dpblk">Setup</div></div><div class="dfc"><div class="dp dpsh">Active→Atlas</div></div><div class="dfc"><div class="dp dpsh">Active→Atlas</div></div><div class="dfc"><div class="dp dpsh">Active→Atlas</div></div><div class="dfc"><div class="dp dppurp">Reverse→Legacy</div></div><div class="dfc"><div class="dp dpblk">Decommissioned</div></div></div>
-      <div class="dfrow"><div class="dflbl">Application</div><div class="dfc"><div class="dp dpleg">No Change</div></div><div class="dfc"><div class="dp dpleg">No Change</div></div><div class="dfc"><div class="dp dpleg">No Change</div></div><div class="dfc"><div class="dp dpleg">No Change</div></div><div class="dfc"><div class="dp dpleg">No Change</div></div><div class="dfc"><div class="dp dpleg">No Change</div></div></div>
-      <div class="dfrow alt"><div class="dflbl" style="color:var(--g700);">Business Gate</div><div class="dfc"><div class="dp dpgts">Schema ✓</div></div><div class="dfc"><div class="dp dpgts">30ms ✓</div></div><div class="dfc"><div class="dp dpgts">Zero Diff ✓</div></div><div class="dfc"><div class="dp dpgts">GDPR ✓</div></div><div class="dfc"><div class="dp dpgte">5× Load ✓</div></div><div class="dfc"><div class="dp dpgte">Handover ✓</div></div></div>
+
+      <div class="dfrow">
+        <div class="dflbl">Legacy RDBMS</div>
+        <div class="dfc"><div class="dp dpleg">Primary R/W</div></div>
+        <div class="dfc"><div class="dp dpleg">Primary R/W</div></div>
+        <div class="dfc"><div class="dp dpleg">Primary R/W</div></div>
+        <div class="dfc"><div class="dp dpleg">Primary R/W</div></div>
+        <div class="dfc"><div class="dp dpdual">Read-Only</div></div>
+        <div class="dfc"><div class="dp dpblk">Decommission</div></div>
+      </div>
+
+      <div class="dfrow">
+        <div class="dflbl">MongoDB Atlas</div>
+        <div class="dfc"><div class="dp dpblk">Provisioning</div></div>
+        <div class="dfc"><div class="dp dpatl">Dual Write</div></div>
+        <div class="dfc"><div class="dp dpatl">Dual + Shadow</div></div>
+        <div class="dfc"><div class="dp dpatl">50% Reads</div></div>
+        <div class="dfc"><div class="dp dpdn">Primary R/W</div></div>
+        <div class="dfc"><div class="dp dpdn">Primary R/W</div></div>
+      </div>
+
+      <div class="dfrow">
+        <div class="dflbl">Read Path</div>
+        <div class="dfc"><div class="dp dpleg">Legacy 100%</div></div>
+        <div class="dfc"><div class="dp dpleg">Legacy 100%</div></div>
+        <div class="dfc"><div class="dp dpsh">Shadow Mode</div></div>
+        <div class="dfc"><div class="dp dpsh">Split 50%</div></div>
+        <div class="dfc"><div class="dp dpatl">Atlas 100%</div></div>
+        <div class="dfc"><div class="dp dpatl">Atlas 100%</div></div>
+      </div>
+
+      <div class="dfrow">
+        <div class="dflbl">Write Path</div>
+        <div class="dfc"><div class="dp dpleg">Legacy Only</div></div>
+        <div class="dfc"><div class="dp dpdual">Dual Write</div></div>
+        <div class="dfc"><div class="dp dpdual">Dual Write</div></div>
+        <div class="dfc"><div class="dp dpdual">Dual Write</div></div>
+        <div class="dfc"><div class="dp dpatl">Atlas Primary</div></div>
+        <div class="dfc"><div class="dp dpatl">Atlas Primary</div></div>
+      </div>
+
+      <div class="dfrow">
+        <div class="dflbl">CDC</div>
+        <div class="dfc"><div class="dp dpblk">Setup</div></div>
+        <div class="dfc"><div class="dp dpsh">Active→Atlas</div></div>
+        <div class="dfc"><div class="dp dpsh">Active→Atlas</div></div>
+        <div class="dfc"><div class="dp dpsh">Active→Atlas</div></div>
+        <div class="dfc"><div class="dp dppurp">Reverse→Legacy</div></div>
+        <div class="dfc"><div class="dp dpblk">Decommissioned</div></div>
+      </div>
+
+      <div class="dfrow">
+        <div class="dflbl">API Contracts</div>
+        <div class="dfc"><div class="dp dpleg">No Change</div></div>
+        <div class="dfc"><div class="dp dpleg">No Change</div></div>
+        <div class="dfc"><div class="dp dpleg">No Change</div></div>
+        <div class="dfc"><div class="dp dpleg">No Change</div></div>
+        <div class="dfc"><div class="dp dpleg">No Change</div></div>
+        <div class="dfc"><div class="dp dpleg">No Change</div></div>
+      </div>
+
+      <div class="dfrow">
+        <div class="dflbl">App Layer</div>
+        <div class="dfc"><div class="dp dpblk">—</div></div>
+        <div class="dfc"><div class="dp dpdual">Driver Config</div></div>
+        <div class="dfc"><div class="dp dpblk">—</div></div>
+        <div class="dfc"><div class="dp dpblk">—</div></div>
+        <div class="dfc"><div class="dp dpdn">Loyalty API ✓</div></div>
+        <div class="dfc"><div class="dp dpblk">—</div></div>
+      </div>
+
+      <div class="dfrow alt">
+        <div class="dflbl" style="color:var(--g700);">Business Gate</div>
+        <div class="dfc"><div class="dp dpgts">Schema ✓</div></div>
+        <div class="dfc"><div class="dp dpgts">30ms ✓</div></div>
+        <div class="dfc"><div class="dp dpgts">Zero Diff ✓</div></div>
+        <div class="dfc"><div class="dp dpgts">GDPR ✓</div></div>
+        <div class="dfc"><div class="dp dpgte">5× Load ✓</div></div>
+        <div class="dfc"><div class="dp dpgte">Handover ✓</div></div>
+      </div>
+
     </div>
-    <div style="padding:10px 14px;background:var(--a50);border:1px solid var(--a200);border-radius:8px;font-size:11px;color:var(--a700);">
-      <strong>Application row — no change, by design.</strong> API Gateway routing means the application never knows which store is serving traffic.
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+      <div style="padding:10px 14px;background:var(--g50);border:1px solid var(--g200);border-radius:8px;font-size:11px;color:var(--g700);">
+        <strong>API Contracts — genuinely no change.</strong> Existing endpoints, request-response contracts, and client apps unchanged throughout all 6 months.
+      </div>
+      <div style="padding:10px 14px;background:var(--a50);border:1px solid var(--a200);border-radius:8px;font-size:11px;color:var(--a700);">
+        <strong>App Layer — two controlled changes.</strong> Month 2: driver config (connection pooling, read preference, projections). Month 5: Loyalty Points API live on Atlas — committed deliverable.
+      </div>
     </div>
+
   </div>
 </div>
 
@@ -750,93 +1100,207 @@
   </div>
   <div class="container" style="padding-top:24px;">
     <table class="itbl">
-      <thead><tr><th>Component</th><th>Month 1–4</th><th>Month 5 Cutover</th><th>Change</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Month 1–4</th>
+          <th>Month 5 Cutover</th>
+          <th>Change</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td class="itc">API Gateway</td><td>Routes to legacy endpoints</td><td>Weighted routing adjusted to Atlas endpoints</td><td><span class="bcfg">Config Only</span></td></tr>
-        <tr><td class="itc">Service Endpoints</td><td><span class="itcode">/api/v1/customer/profile</span></td><td><span class="itcode">/api/v1/customer/profile</span></td><td><span class="bnone">No Change</span></td></tr>
-        <tr><td class="itc">API Contracts</td><td>JSON / gRPC request-response</td><td>JSON / gRPC — identical</td><td><span class="bnone">No Change</span></td></tr>
-        <tr><td class="itc">Client Apps</td><td>Call same endpoints as today</td><td>Call same endpoints — no migration awareness</td><td><span class="bnone">No Change</span></td></tr>
-        <tr><td class="itc">Read Ops</td><td>Legacy RDBMS. Shadow compare from M3.</td><td>Atlas 100%. Legacy standby read-only.</td><td><span class="bcfg">Gateway Config</span></td></tr>
-        <tr><td class="itc">Write Ops</td><td>Legacy primary. CDC replicates to Atlas from M2.</td><td>Atlas primary. Reverse CDC syncs to legacy.</td><td><span class="bcfg">Gateway Config</span></td></tr>
-        <tr><td class="itc">Auth Layer</td><td>No change — sits above data store</td><td>No change — sits above data store</td><td><span class="bnone">No Change</span></td></tr>
-        <tr><td class="itc">Monitoring</td><td>Existing monitoring retained. Atlas Advisor added.</td><td>Atlas Performance Advisor primary.</td><td><span class="badd">Additive Only</span></td></tr>
+        <tr>
+          <td class="itc">API Gateway</td>
+          <td>Routes to legacy endpoints</td>
+          <td>Weighted routing adjusted to Atlas endpoints</td>
+          <td><span class="bcfg">Config Only</span></td>
+        </tr>
+        <tr>
+          <td class="itc">Service Endpoints</td>
+          <td><span class="itcode">/api/v1/customer/profile</span></td>
+          <td><span class="itcode">/api/v1/customer/profile</span></td>
+          <td><span class="bnone">No Change</span></td>
+        </tr>
+        <tr>
+          <td class="itc">API Contracts</td>
+          <td>JSON / gRPC request-response</td>
+          <td>JSON / gRPC — identical</td>
+          <td><span class="bnone">No Change</span></td>
+        </tr>
+        <tr>
+          <td class="itc">Client Apps</td>
+          <td>Call same endpoints as today</td>
+          <td>Call same endpoints — no migration awareness</td>
+          <td><span class="bnone">No Change</span></td>
+        </tr>
+        <tr>
+          <td class="itc">Driver Config</td>
+          <td>Applied Month 2 — connection pooling, read preference, query projections</td>
+          <td>Unchanged from Month 2 configuration</td>
+          <td><span class="badd">Config — M2</span></td>
+        </tr>
+        <tr>
+          <td class="itc">Read Ops</td>
+          <td>Legacy RDBMS. Shadow compare from M3.</td>
+          <td>Atlas 100%. Legacy standby read-only.</td>
+          <td><span class="bcfg">Gateway Config</span></td>
+        </tr>
+        <tr>
+          <td class="itc">Write Ops</td>
+          <td>Legacy primary. CDC replicates to Atlas from M2.</td>
+          <td>Atlas primary. Reverse CDC syncs to legacy.</td>
+          <td><span class="bcfg">Gateway Config</span></td>
+        </tr>
+        <tr>
+          <td class="itc">Loyalty Points API</td>
+          <td>Existing loyalty endpoints unchanged</td>
+          <td>New endpoint live on Atlas — committed deliverable ✓</td>
+          <td><span class="badd">New — M5</span></td>
+        </tr>
+        <tr>
+          <td class="itc">Auth Layer</td>
+          <td>No change — sits above data store</td>
+          <td>No change — sits above data store</td>
+          <td><span class="bnone">No Change</span></td>
+        </tr>
+        <tr>
+          <td class="itc">Monitoring</td>
+          <td>Existing monitoring retained. Atlas Advisor added.</td>
+          <td>Atlas Performance Advisor primary.</td>
+          <td><span class="badd">Additive Only</span></td>
+        </tr>
       </tbody>
     </table>
+
     <div class="istats">
-      <div class="isc"><div class="isv isg">0%</div><div class="isl">API contract changes</div></div>
-      <div class="isc"><div class="isv isb">0%</div><div class="isl">Client app code changes</div></div>
-      <div class="isc"><div class="isv isa">~2</div><div class="isl">Gateway config changes</div></div>
-      <div class="isc"><div class="isv ist">2wk</div><div class="isl">Dev effort total</div></div>
+      <div class="isc">
+        <div class="isv isg">0%</div>
+        <div class="isl">API contract changes</div>
+      </div>
+      <div class="isc">
+        <div class="isv isb">0%</div>
+        <div class="isl">Client app code changes</div>
+      </div>
+      <div class="isc">
+        <div class="isv isa">~2</div>
+        <div class="isl">Gateway config changes</div>
+      </div>
+      <div class="isc">
+        <div class="isv ist">~3wk</div>
+        <div class="isl">Dev effort — driver config + Loyalty API</div>
+      </div>
     </div>
+
   </div>
 </div>
 
 <!-- PAGE 7 -->
 <div id="p7" class="page">
-  <div class="hero" style="padding:36px 1.75rem 32px;">
-    <div class="hero-badge">Capability Architecture</div>
-    <h1 style="font-size:26px;">What This Unlocks</h1>
-    <p>Engineering capabilities that compound. Customer experiences that drive revenue.</p>
-  </div>
-  <div class="container" style="padding-top:24px;">
-
-    <div class="aud-lbl albiz">Business</div>
-    <div class="cgrid" style="margin-bottom:20px;">
-      <div class="cap capbiz"><h4>Revenue Protection</h4><p>Sub-30ms on every customer touchpoint.</p></div>
-      <div class="cap capbiz"><h4>Peak Capacity</h4><p>5× surge handled by architecture — not emergency scaling.</p></div>
-      <div class="cap capbiz"><h4>Global Expansion</h4><p>New regulated market = config change, not a compliance programme.</p></div>
-      <div class="cap capbiz"><h4>Feature Velocity</h4><p>New loyalty attribute ships in days. No schema migration ticket.</p></div>
+    <div class="hero" style="padding:36px 1.75rem 32px;">
+        <div class="hero-badge">Capability Architecture</div>
+        <h1 style="font-size:26px;">What This Unlocks</h1>
+        <p>Engineering capabilities that compound. Customer experiences that drive revenue.</p>
     </div>
+    <div class="container" style="padding-top:24px;">
 
-    <div class="aud-lbl altech">Technical</div>
-    <div class="cgrid" style="margin-bottom:24px;">
-      <div class="cap captech"><h4>Engineering Velocity</h4><p>No ALTER TABLE. No coordinated schema migrations.</p></div>
-      <div class="cap captech"><h4>Horizontal Scaling</h4><p>Add shards as data grows. No single-node ceiling.</p></div>
-      <div class="cap captech"><h4>Modern Observability</h4><p>Atlas Performance Advisor built in. Zero additional tooling.</p></div>
-      <div class="cap captech"><h4>Vendor Independence</h4><p>Multi-cloud. Open data model. No proprietary lock-in.</p></div>
+        <div class="aud-lbl albiz">Business</div>
+        <div class="cgrid" style="margin-bottom:20px;">
+            <div class="cap capbiz"><h4>Revenue Protection</h4>
+                <p>Sub-30ms on every customer touchpoint.</p></div>
+            <div class="cap capbiz"><h4>Peak Capacity</h4>
+                <p>5× surge handled by architecture — not emergency scaling.</p></div>
+            <div class="cap capbiz"><h4>Global Expansion</h4>
+                <p>New regulated market = config change, not a compliance programme.</p></div>
+            <div class="cap capbiz"><h4>Feature Velocity</h4>
+                <p>New loyalty attribute ships in days. No schema migration ticket.</p></div>
+        </div>
+
+        <div class="aud-lbl altech">Technical</div>
+        <div class="cgrid" style="margin-bottom:24px;">
+            <div class="cap captech"><h4>Engineering Velocity</h4>
+                <p>No ALTER TABLE. No coordinated schema migrations.</p></div>
+            <div class="cap captech"><h4>Horizontal Scaling</h4>
+                <p>Add shards as data grows. No single-node ceiling.</p></div>
+            <div class="cap captech"><h4>Modern Observability</h4>
+                <p>Atlas Performance Advisor built in. Zero additional tooling.</p></div>
+            <div class="cap captech"><h4>Vendor Independence</h4>
+                <p>Multi-cloud. Open data model. No proprietary lock-in.</p></div>
+        </div>
+
+        <div class="stag" style="margin-bottom:10px;">Business Impact Summary</div>
+        <table class="vtbl">
+            <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Current</th>
+                <th>Target</th>
+                <th>Business Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="vtm">Response Time</td>
+                <td class="vtc">60ms p95 — failing</td>
+                <td class="vtt">&lt;30ms p95</td>
+                <td class="vtv">Higher conversion. Lower abandonment.</td>
+            </tr>
+            <tr>
+                <td class="vtm">Peak Load</td>
+                <td class="vtc">Failing at 1×</td>
+                <td class="vtt">5× by design</td>
+                <td class="vtv">Peak season protected.</td>
+            </tr>
+            <tr>
+                <td class="vtm">Schema Complexity</td>
+                <td class="vtc">45+ tables, JOIN per request</td>
+                <td class="vtt">3 collections, single fetch</td>
+                <td class="vtv">Features in days, not quarters.</td>
+            </tr>
+            <tr>
+                <td class="vtm">GDPR Compliance</td>
+                <td class="vtc">Application layer — bypassable</td>
+                <td class="vtt">Storage layer — enforced</td>
+                <td class="vtv">New market entry unlocked.</td>
+            </tr>
+            <tr>
+                <td class="vtm">Migration Risk</td>
+                <td class="vtc">Traditional = downtime</td>
+                <td class="vtt">Strangler Fig = zero disruption</td>
+                <td class="vtv">No customer impact. Instant rollback.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="cta">
+            <div class="cta-t">
+                <h3>The window to act is now.</h3>
+                <p>System is failing its latency target today. Month 1 Discovery must start immediately to protect the
+                    Month 5 cutover gate.</p>
+            </div>
+            <div class="cta-a">
+                <button class="cbtn cp">Proceed to Month 1 Discovery</button>
+                <button class="cbtn cs">Review Architecture Document</button>
+                <div class="cta-note">Delay beyond May 2026 compresses the validation window</div>
+            </div>
+        </div>
     </div>
-
-    <div class="stag" style="margin-bottom:10px;">Business Impact Summary</div>
-    <table class="vtbl">
-      <thead><tr><th>Metric</th><th>Current</th><th>Target</th><th>Business Value</th></tr></thead>
-      <tbody>
-        <tr><td class="vtm">Response Time</td><td class="vtc">60ms p95 — failing</td><td class="vtt">&lt;30ms p95</td><td class="vtv">Higher conversion. Lower abandonment.</td></tr>
-        <tr><td class="vtm">Peak Load</td><td class="vtc">Failing at 1×</td><td class="vtt">5× by design</td><td class="vtv">Peak season protected.</td></tr>
-        <tr><td class="vtm">Schema Complexity</td><td class="vtc">45+ tables, JOIN per request</td><td class="vtt">3 collections, single fetch</td><td class="vtv">Features in days, not quarters.</td></tr>
-        <tr><td class="vtm">GDPR Compliance</td><td class="vtc">Application layer — bypassable</td><td class="vtt">Storage layer — enforced</td><td class="vtv">New market entry unlocked.</td></tr>
-        <tr><td class="vtm">Migration Risk</td><td class="vtc">Traditional = downtime</td><td class="vtt">Strangler Fig = zero disruption</td><td class="vtv">No customer impact. Instant rollback.</td></tr>
-      </tbody>
-    </table>
-
-    <div class="cta">
-      <div class="cta-t">
-        <h3>The window to act is now.</h3>
-        <p>System is failing its latency target today. Month 1 Discovery must start immediately to protect the Month 5 cutover gate.</p>
-      </div>
-      <div class="cta-a">
-        <button class="cbtn cp">Proceed to Month 1 Discovery</button>
-        <button class="cbtn cs">Review Architecture Document</button>
-        <div class="cta-note">Delay beyond May 2026 compresses the validation window</div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>
-function show(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  window.scrollTo(0,0);
-}
-function tms(id,card){
-  const d=document.getElementById(id);
-  const open=d.classList.contains('show');
-  document.querySelectorAll('.msd').forEach(x=>x.classList.remove('show'));
-  document.querySelectorAll('.msc').forEach(x=>x.classList.remove('sel'));
-  if(!open){d.classList.add('show');card.classList.add('sel');d.scrollIntoView({behavior:'smooth',block:'nearest'});}
-}
+    function show(id,btn){
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+      window.scrollTo(0,0);
+    }
+    function tms(id,card){
+      const d=document.getElementById(id);
+      const open=d.classList.contains('show');
+      document.querySelectorAll('.msd').forEach(x=>x.classList.remove('show'));
+      document.querySelectorAll('.msc').forEach(x=>x.classList.remove('sel'));
+      if(!open){d.classList.add('show');card.classList.add('sel');d.scrollIntoView({behavior:'smooth',block:'nearest'});}
+    }
 </script>
 </body>
 </html>
