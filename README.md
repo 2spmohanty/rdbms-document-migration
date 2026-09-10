@@ -7,9 +7,9 @@ https://2spmohanty.github.io/rdbms-document-migration/
 
 ---
 
-### CURRENT ARCHITECTURE
+### CURRENT STATE
 
-![Current Architecture](https://github.com/2spmohanty/customer-loyalty-modernisation/blob/main/target_architecture.svg)
+![Current Architecture](https://github.com/2spmohanty/customer-loyalty-modernisation/blob/main/current_state.svg))
 
 ---
 
